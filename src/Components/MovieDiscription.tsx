@@ -1,18 +1,19 @@
-function MovieDiscription() {
+type MovieDiscriptionProps={
+  title:string,
+  discription:string
+
+}
+function MovieDiscription({title,discription}:MovieDiscriptionProps) {
   return (
-    <div className="font-netFlix w-[50%] h-[50%] break-words p-7   relative left-12 top-48">
-      <div className="text-6xl h-auto  my-5 w-auto text-white ">
-        <h1>Hello world</h1>
+    <div className="font-netFlix w-[35%] h-[50%] break-words relative left-12 top-48">
+      <div className="text-5xl h-auto  my-5 w-auto text-white ">
+        <h1>{title?title:''}</h1>
       </div>
-      <div className="h-auto my-5 w-full text-white text-xl ">
-        <p>
-          hdkfjd sdlkjfdk lkdjfkd lkdjfdkf ldkjfdk dkljdklj ldkjldksf sdlkjfdksf
-          ldksjksdj lsdkjdkf dfdsdsff dsfdsf sdfdsssssssss sdfffffff
-          sdfffffffffff sdfffffff
-        </p>
+      <div className="h-auto my-5 w-full text-white text-lg ">
+        <p>{discription?discription:''}</p>
       </div>
       <div className=" my-5 w-auto flex items-center h-auto gap-3  ">
-        <div className="bg-white text-black text-2xl w-40 h-16 rounded">
+        <div className="bg-white transition duration-400 hover:bg-opacity-90 text-black text-2xl w-36 h-14 rounded">
           <button
             type="button"
             className="flex items-center justify-center w-full h-full gap-x-4 "
@@ -23,7 +24,7 @@ function MovieDiscription() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-12 h-12"
+              className="w-11 h-w-11"
             >
               <path
                 strokeLinecap="round"
@@ -35,7 +36,7 @@ function MovieDiscription() {
             <span>Play</span>
           </button>
         </div>
-        <div className="bg-gray-300 bg-opacity-35 backdrop-filter backdrop-blur-xl  text-white text-2xl w-56 h-16 rounded">
+        <div className="bg-gray-300 transition duration-400 hover:bg-gray-200 hover:bg-opacity-55 bg-opacity-35 backdrop-filter backdrop-blur-sm  text-white text-2xl w-52 h-14 rounded">
           <button
             type="button"
             className="flex items-center justify-center w-full h-full gap-x-4 "
@@ -46,7 +47,7 @@ function MovieDiscription() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-12 h-w-12"
+              className="w-11 h-w-11"
             >
               <path
                 strokeLinecap="round"

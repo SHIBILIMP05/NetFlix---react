@@ -1,27 +1,55 @@
 import MovieContainers from "./MovieContainers";
 import MovieDiscription from "./MovieDiscription";
-
+import axios from "../axios";
+import { API_KEY,imageId } from "../Constants/const";
+import { useEffect, useState } from "react";
+import {popular,latest,actions,ComedyMovies,Crime,HorrorMovies,Mystery,War} from "../urls"
 function MainSection() {
+  const obj = {
+    title: "",
+    overview: "",
+    backdrop_path: "",
+  };
+  const [movie, setMovie] = useState(obj);
+  useEffect(() => {
+    axios
+      .get(`movie/popular?language=en-US&page=1&api_key=${API_KEY}`)
+      .then((response) => {
+        console.log(response.data);
+        setMovie(response.data.results[1]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[]);
+  console.log(movie.backdrop_path )
   return (
-    <div className="bg-black w-screen h-auto">
-      {/* Video section */}
-      <div className="bg-slate-400 w-full h-[750px] bg-gradient-to-b">
+    <div className=" w-full h-auto">
+      {/* video section */}
+      <div
+        style={{
+          backgroundImage: `url(${movie?imageId+movie.backdrop_path:''})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className=" w-full h-screen bg-gradient-to-b"
+      >
         <div className=" text-white w-full h-24  flex items-center">
-          <div className=" px-32 w-auto h-auto flex ">
+          <div className=" px-24 w-auto h-auto flex ">
             <div className="">
-              <img src="../public/pngwing.com.png" alt="" />
+              <img src="./pngwing.com.png" alt="" />
             </div>
             <div className="font-bold flex items-center gap-x-8 font-netFlix list-none mx-12">
-              <li>Home</li>
-              <li>TV Shows</li>
-              <li>Movies</li>
-              <li>New & Popular</li>
-              <li>My List</li>
-              <li>Browse by Languages</li>
+              <li className="cursor-pointer">Home</li>
+              <li className="cursor-pointer">TV Shows</li>
+              <li className="cursor-pointer">Movies</li>
+              <li className="cursor-pointer">New & Popular</li>
+              <li className="cursor-pointer">My List</li>
+              <li className="cursor-pointer">Browse by Languages</li>
             </div>
           </div>
-          <div className="gap-5 relative left-[27%] flex items-center ">
-            <span>
+          <div className="gap-5 relative left-[30%] flex items-center ">
+            <span className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -37,7 +65,7 @@ function MainSection() {
                 />
               </svg>
             </span>
-            <span>
+            <span className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -53,7 +81,7 @@ function MainSection() {
                 />
               </svg>
             </span>
-            <div className="w-10 h-10 ">
+            <div className="w-10 h-10 cursor-pointer">
               <img
                 className="rounded"
                 src="https://i.pinimg.com/originals/0d/dc/ca/0ddccae723d85a703b798a5e682c23c1.png"
@@ -61,10 +89,17 @@ function MainSection() {
             </div>
           </div>
         </div>
-        <MovieDiscription/>
+        <MovieDiscription title={movie.title} discription={movie.overview} />
       </div>
-      <MovieContainers />
-      <MovieContainers />
+      <MovieContainers title={"Popular"} url={popular} />
+      <MovieContainers title={"Latest"} url={latest} />
+      <MovieContainers title={"Actions"} url={actions} />
+      <MovieContainers title={"ComedyMovies"} url={ComedyMovies} />
+      <MovieContainers title={"HorrorMovies"} url={HorrorMovies} />
+      <MovieContainers title={"Crime"} url={Crime} />
+      <MovieContainers title={"Mystery"} url={Mystery} />
+      <MovieContainers title={"War"} url={War} />
+
     </div>
   );
 }
