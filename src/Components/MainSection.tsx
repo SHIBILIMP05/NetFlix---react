@@ -12,16 +12,19 @@ function MainSection() {
   };
   const [movie, setMovie] = useState(obj);
   useEffect(() => {
+     const randomNum:number = Math.floor(Math.random() * 20) + 0
+    console.log(randomNum);
+    
     axios
       .get(`movie/popular?language=en-US&page=1&api_key=${API_KEY}`)
       .then((response) => {
         console.log(response.data);
-        setMovie(response.data.results[1]);
+        setMovie(response.data.results[randomNum]);
       })
       .catch((err) => {
         console.log(err);
       });
-  },[]);
+  },  []);
   console.log(movie.backdrop_path )
   return (
     <div className=" w-full h-auto">
@@ -32,7 +35,7 @@ function MainSection() {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className=" w-full h-screen bg-gradient-to-b"
+        className=" w-full h-[90vh] bg-gradient-to-b "
       >
         <div className=" text-white w-full h-24  flex items-center">
           <div className=" px-24 w-auto h-auto flex ">
@@ -99,7 +102,7 @@ function MainSection() {
       <MovieContainers title={"Crime"} url={Crime} />
       <MovieContainers title={"Mystery"} url={Mystery} />
       <MovieContainers title={"War"} url={War} />
-
+      
     </div>
   );
 }
