@@ -3,11 +3,22 @@ import axios from "../axios";
 import { useEffect, useRef, useState } from "react";
 import { imageId,API_KEY } from "../Constants/const";
 import YouTube from 'react-youtube'
-function MovieContainers(prop) {
+interface Movie {
+  id: string;
+  backdrop_path: string;
+}
+
+interface MovieContainersProps {
+  title: string;
+  url: string;
+}
+function MovieContainers(prop:MovieContainersProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const [movieUrl,setMovieUrl] = useState("")
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movieUrl,setMovieUrl] = useState()
+  console.log("movieUrl heloo:::",movieUrl);
+  
 
   const handleClick = (direction: string) => {
     setIsMoved(true);
@@ -38,11 +49,12 @@ function MovieContainers(prop) {
       autoplay: 1,
     },
   };
-  const handleMovieClick = (id)=>{
-    console.log(id)
+  const handleMovieClick = (id:string)=>{
     axios.get(`movie/${id}/videos?language=en-US&api_key=${API_KEY}`).then((response)=>{
       if(response.data.results.length!==0){
         setMovieUrl(response.data.results[0])
+        console.log("koii::",response.data.results[0]);
+        
       }else{
         " Array is empty !! ,There is no ralated videos"
       }
